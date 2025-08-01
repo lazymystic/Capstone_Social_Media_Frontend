@@ -1,22 +1,37 @@
 'use client';
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'sonner';
 import LoadingButton from '../Helper/LoadingButton';
 import { BASE_API_URL } from '@/server';
 import axios from 'axios';
 import { handleAuthRequest } from '../utils/apiRequest';
 import { setAuthUser } from '@/store/authSlice';
+import { RootState } from '@/store/store';
 
 const Verify = () => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const user= useSelector((state: RootState) => state.auth.user);
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const [isLoading, setIsLoading] = useState(false);
   const [isResending, setIsResending] = useState(false);
   const [timeLeft, setTimeLeft] = useState(300); // 5 minutes
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+  const [isPageLoading, setIsPageLoading] = useState(true);
+
+    useEffect(() => {
+        // Check if user is already authenticated
+        if (!user) {
+        router.replace('/auth/login');
+        } else if( user && user.isVerified){
+        router.replace('/');
+        }
+        else {
+        setIsPageLoading(false);
+        }
+    }, [user, router]);
 
   // Create ref callback to avoid inline function issues
   const setInputRef = useCallback((index: number) => (el: HTMLInputElement | null) => {
@@ -109,6 +124,14 @@ const Verify = () => {
       inputRefs.current[0]?.focus(); // Focus first input
     }
   };
+
+  if(isPageLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gray-50">
+        <div className="loader"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
