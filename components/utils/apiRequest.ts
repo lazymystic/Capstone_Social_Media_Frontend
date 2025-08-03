@@ -17,9 +17,9 @@ export const handleAuthRequest = async <T>(
         return response;
     } catch (error) {
         const axiosError = error as AxiosError<ApiErrorResponse>;
-        console.log(error);
+        // console.log(error);
         if (axiosError?.response?.data?.message) {
-            console.log(axiosError?.response?.data?.message);
+            // console.log(axiosError?.response?.data?.message);
             toast.error(axiosError?.response?.data?.message);
         }
         return null;

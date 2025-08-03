@@ -28,7 +28,7 @@ const ForgetPassword = () => {
     }
 
     const forgetPasswordReq = async () => {
-      console.log('Sending forget password request for:', email);
+      // console.log('Sending forget password request for:', email);
       return await axios.post(`${BASE_API_URL}/users/forget-password`, 
         { email }
       );
@@ -36,7 +36,7 @@ const ForgetPassword = () => {
 
     const response = await handleAuthRequest(forgetPasswordReq, setIsLoading);
     if (response) {
-      console.log('Forget password request successful:', response);
+      // console.log('Forget password request successful:', response);
       toast.success('Password reset OTP sent to your email!');
       // Redirect to reset password page
       router.push('/auth/reset-password?email='+encodeURIComponent(email));

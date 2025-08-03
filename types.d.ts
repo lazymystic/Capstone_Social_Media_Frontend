@@ -4,7 +4,7 @@ export interface User{
     email: string;
     password: string;
     profilePicture: string;
-    bio: string;
+    Bio: string;
     followers: string[];
     following: string[];
     posts:  Post[];
@@ -19,7 +19,9 @@ export interface Comment {
         _id: string;
         userName: string;
         profilePicture: string;
-    }
+        Bio?: string;
+    };
+    post: string;
     createdAt: string;
 }
 
@@ -30,8 +32,13 @@ export interface Post {
         url : string;
         publicId: string;
     };
+    user: {
+        _id: string;
+        userName: string;
+        profilePicture: string;
+        Bio?: string;
+    };
     likes: string[];
     comments: Comment[];
     createdAt: string;
-    
 }

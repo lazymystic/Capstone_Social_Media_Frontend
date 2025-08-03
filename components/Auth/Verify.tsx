@@ -24,7 +24,7 @@ const Verify = () => {
     useEffect(() => {
         // Check if user is already authenticated
         if (!user) {
-        router.replace('/auth/login');
+          router.replace('/auth/login');
         } else if( user && user.isVerified){
         router.replace('/');
         }

@@ -8,6 +8,8 @@ import axios from 'axios';
 import { handleAuthRequest } from '../utils/apiRequest';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
+import { useDispatch } from 'react-redux';
+import { setAuthUser } from '@/store/authSlice';
 
 interface SignupFormData {
   userName: string;
@@ -19,6 +21,7 @@ interface SignupFormData {
 const Signup = () => {
 
   const router = useRouter();
+  const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState<SignupFormData>({
     userName: '',
@@ -39,25 +42,24 @@ const Signup = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const signupReq = async () => {
-      console.log('Submitting form with data:', formData);
+    //   console.log('Submitting form with data:', formData);
       return await axios.post(`${BASE_API_URL}/users/signup`, formData, {withCredentials: true,});
     };
     
     const response = await handleAuthRequest(signupReq, setIsLoading);
     if (response) {
-      console.log('Signup successful:', response);
+    //   console.log('Signup successful:', response);
       // Don't set auth user yet - wait for OTP verification
-      // dispatch(setAuthUser(response.data.data.user));
+      
+      dispatch(setAuthUser(response.data.data.user));
       toast.success('Account created successfully! Please check your email for verification code.');
       
       // Redirect to OTP verification page
-      console.log('Redirecting to OTP verification page...');
+    //   console.log('Redirecting to OTP verification page...');
       router.push("/auth/verify");
-      console.log('Router.push executed for /auth/verify');
+    //   console.log('Router.push executed for /auth/verify');
       
-    } else {
-      console.log('Signup failed - response was null');
-    }
+    } 
     
   };
 

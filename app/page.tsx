@@ -1,10 +1,10 @@
-import Home from '@/components/Home/home'
+import Home from '@/components/Home/Home'
 import React from 'react'
 
 const Homepage = () => {
-  return <>
+  return (
   <Home />
-  </>
+  )
 }
 
 export default Homepage

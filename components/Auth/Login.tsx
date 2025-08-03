@@ -39,26 +39,26 @@ const Login = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const loginReq = async () => {
-      console.log('Submitting form with data:', formData);
+      // console.log('Submitting form with data:', formData);
       return await axios.post(`${BASE_API_URL}/users/login`, formData, {withCredentials: true,});
     };
     
     const response = await handleAuthRequest(loginReq, setIsLoading);
     if (response) {
-      console.log('Login successful:', response);
+      // console.log('Login successful:', response);
       dispatch(setAuthUser(response.data.data.user));
-      toast.success('Account created successfully! Welcome!');
+      toast.success('Login successfull! Welcome!');
       
       // Add debugging
-      console.log('About to redirect to home page...');
-      console.log('Current URL:', window.location.href);
+      // console.log('About to redirect to home page...');
+      // console.log('Current URL:', window.location.href);
       
       router.push("/");
-      console.log('Router.push executed');
+      // console.log('Router.push executed');
       
       
     } else {
-      console.log('Login failed - response was null');
+      // console.log('Login failed - response was null');
     }
     
   };
@@ -126,7 +126,7 @@ const Login = () => {
                         <LoadingButton
                             type="submit"
                             loading={isLoading}
-                            loadingText="Creating Account..."
+                            loadingText="Loading..."
                         >
                             Login Now
                         </LoadingButton>

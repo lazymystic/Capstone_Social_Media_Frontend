@@ -87,12 +87,12 @@ const ResetPassword = () => {
     }
 
     const resetPasswordReq = async () => {
-      console.log('Submitting reset password request:', {
-        email: formData.email,
-        otp: formData.otp,
-        password: formData.password,
-        passwordConfirm: formData.passwordConfirm
-      });
+      // console.log('Submitting reset password request:', {
+      //   email: formData.email,
+      //   otp: formData.otp,
+      //   password: formData.password,
+      //   passwordConfirm: formData.passwordConfirm
+      // });
       
       return await axios.post(`${BASE_API_URL}/users/reset-password`, formData, {
         withCredentials: true,
@@ -101,7 +101,7 @@ const ResetPassword = () => {
 
     const response = await handleAuthRequest(resetPasswordReq, setIsLoading);
     if (response) {
-      console.log('Password reset successful:', response);
+      // console.log('Password reset successful:', response);
       toast.success('Password reset successfully! You can now login with your new password.');
       // Redirect to login page
       router.push('/auth/login');
